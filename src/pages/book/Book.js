@@ -213,7 +213,7 @@ export default function NotificationsPage(props) {
         .then(response => response.json())
         .then(data => {
           if(data.status === 200){
-            window.location.href = '/#/app/apportionment';
+            window.location.href = '/#/app/appointment';
           }
         });
     }
