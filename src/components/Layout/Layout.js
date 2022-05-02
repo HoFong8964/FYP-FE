@@ -25,6 +25,7 @@ import Sidebar from "../Sidebar";
 
 // pages
 import Dashboard from "../../pages/dashboard";
+import Personal from "../../pages/personal";
 import Book from "../../pages/book";
 import Appointment from "../../pages/appointment";
 import Typography from "../../pages/typography";
@@ -55,6 +56,7 @@ function Layout(props) {
           >
             <div className={classes.fakeToolbar} />
             <Switch>
+              <Route path="/app/personal" component={Personal} />
               <Route path="/app/book" component={Book} />
               <Route path="/app/appointment" component={Appointment} />
               <Route path="/app/dashboard" component={Dashboard} />

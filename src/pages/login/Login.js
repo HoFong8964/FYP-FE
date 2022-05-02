@@ -32,10 +32,10 @@ function Login(props) {
   var [isLoading, setIsLoading] = useState(false);
   var [error, setError] = useState(null);
   var [activeTabId, setActiveTabId] = useState(0);
-  var [loginValue, setLoginValue] = useState("admin@flatlogic.com");
-  var [passwordValue, setPasswordValue] = useState("password");
-  var [phyLoginValue, setPhyLoginValue] = useState("phy@flatlogic.com");
-  var [phyPasswordValue, setPhyPasswordValue] = useState("password");
+  var [loginValue, setLoginValue] = useState("");
+  var [passwordValue, setPasswordValue] = useState("");
+  var [phyLoginValue, setPhyLoginValue] = useState("");
+  var [phyPasswordValue, setPhyPasswordValue] = useState("");
 
   return (
     <Grid container className={classes.container}>

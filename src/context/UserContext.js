@@ -97,6 +97,7 @@ function loginPhyUser(dispatch, login, password, history, setIsLoading, setError
       .then(response => response.json())
       .then(data => {
         if(data.status === 200){
+          localStorage.setItem("id", data.data.id);
           localStorage.setItem("account", data.data.account);
           localStorage.setItem("displayName", data.data.displayName);
           localStorage.setItem("type", 'physiotherapists');

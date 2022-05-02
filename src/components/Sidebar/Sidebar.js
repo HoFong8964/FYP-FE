@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Drawer, IconButton, List } from "@material-ui/core";
 import {
   Home as HomeIcon,
+  Person as PersonIcon,
   NotificationsNone as NotificationsIcon,
   FormatSize as TypographyIcon,
   FilterNone as UIElementsIcon,
@@ -30,14 +31,18 @@ import {
   useLayoutDispatch,
   toggleSidebar,
 } from "../../context/LayoutContext";
-var structure = [];
-if(localStorage.getItem('type') == 'physiotherapists'){
 
-}
-else{
-  structure = [
+if(localStorage.getItem('type') === 'physiotherapists'){
+  var structure = [
     { id: 0, label: "預約診症", link: "/app/book", icon: <DateRangeIcon /> },
     { id: 1, label: "預約記錄", link: "/app/appointment", icon: <AccessAlarmsIcon /> },
+  ];
+}
+else{
+  var structure = [
+    { id: 0, label: "個人資料", link: "/app/personal", icon: <PersonIcon /> },
+    { id: 1, label: "預約診症", link: "/app/book", icon: <DateRangeIcon /> },
+    { id: 2, label: "預約記錄", link: "/app/appointment", icon: <AccessAlarmsIcon /> },
     {
       id: 1,
       label: "Typography",
@@ -61,31 +66,6 @@ else{
         { label: "Charts", link: "/app/ui/charts" },
         { label: "Maps", link: "/app/ui/maps" },
       ],
-    },
-    { id: 5, type: "divider" },
-    { id: 6, type: "title", label: "HELP" },
-    { id: 7, label: "Library", link: "https://flatlogic.com/templates", icon: <LibraryIcon /> },
-    { id: 8, label: "Support", link: "https://flatlogic.com/forum", icon: <SupportIcon /> },
-    { id: 9, label: "FAQ", link: "https://flatlogic.com/forum", icon: <FAQIcon /> },
-    { id: 10, type: "divider" },
-    { id: 11, type: "title", label: "PROJECTS" },
-    {
-      id: 12,
-      label: "My recent",
-      link: "",
-      icon: <Dot size="small" color="warning" />,
-    },
-    {
-      id: 13,
-      label: "Starred",
-      link: "",
-      icon: <Dot size="small" color="primary" />,
-    },
-    {
-      id: 14,
-      label: "Background",
-      link: "",
-      icon: <Dot size="small" color="secondary" />,
     },
   ];
 }

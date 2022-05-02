@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Grid, TextField, Select, MenuItem, Box, Button, FormControl, InputLabel,} from "@material-ui/core";
+import { Grid, TextField, Select, MenuItem, Box, Button, FormControl, InputLabel, Checkbox} from "@material-ui/core";
 import { Close as CloseIcon } from "@material-ui/icons";
 import { ToastContainer, toast } from "react-toastify";
 import SyntaxHighlighter from "react-syntax-highlighter";
@@ -33,14 +33,13 @@ export default function NotificationsPage(props) {
   var classes = useStyles();
 
   // local
-  var [notificationsPosition, setNotificationPosition] = useState(2);
-  var [errorToastId, setErrorToastId] = useState(null);
   var [phyList, setPhyList] = useState(undefined);
   var [phyId, setPhyId] = useState('');
   var [bookDate, setBookDate] = useState(new Date());
   var [hour, setHour] = useState('');
   var [minute, setMinute] = useState('');
   var [remarks, setRemarks] = useState('');
+  var [agreement ,setAgreement] = useState(false);
   
 
   var hours = ['10','11','12','13','14','15','16','17','18']
@@ -167,6 +166,16 @@ export default function NotificationsPage(props) {
               </div>
               <div>&nbsp;</div>
               <div>&nbsp;</div>
+              <div>
+                <Checkbox
+                  className={classes.checkbox}
+                  checked={agreement}
+                  onChange={e => {setAgreement(e.target.checked)}}
+                />
+                我同意相關機構取閱我的電子健康紀錄
+              </div>
+              <div>&nbsp;</div>
+              <div>&nbsp;</div>
               <div className={classes.formButtons}>
                 <Button
                   onClick={() =>
@@ -189,14 +198,12 @@ export default function NotificationsPage(props) {
   );
 
   function confirmBook() {
-    var appointmentDate = bookDate.getFullYear() + "-" + (bookDate.getMonth()+1) + "-" + bookDate.getDate();
+    var appointmentDate = bookDate.getFullYear() + "-" + ((bookDate.getMonth()+1)<10 ? '0' : '') + (bookDate.getMonth()+1) + "-" + (bookDate.getDate() < 10 ? '0' : '') + bookDate.getDate();
     var appointmentTime = hour + ":" + minute;
-
-    console.log("phyId:", phyId);
-    console.log("bookDate:", bookDate);
-    console.log("appointmentDate:", appointmentDate);
-    console.log("appointmentTime:", appointmentTime);
-    console.log("remarks:", remarks);
+    if(!agreement){
+      alert('請同意相關機構取閱你的電子健康紀錄');
+      return false;
+    }
     if(phyId && appointmentDate && appointmentTime){
       const requestOptions = {
         method: 'POST',
