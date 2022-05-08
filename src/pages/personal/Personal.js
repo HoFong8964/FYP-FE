@@ -1,5 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { Grid } from "@material-ui/core";
+import { 
+  Table,
+  TableRow,
+  TableHead,
+  TableBody,
+  TableCell,
+  Grid
+ } from "@material-ui/core";
 
 // styles
 import useStyles from "./styles";
@@ -14,7 +21,7 @@ export default function PersonalPage() {
   const [infomation, setInfomation] = useState([]);
 
   useEffect(() => {
-    // get appointment data
+    // get patient data
     const requestOptions = {
       method: 'GET',
       headers: { 'Content-Type': 'application/json' },
@@ -76,6 +83,31 @@ export default function PersonalPage() {
                 </React.Fragment>
               ))}
             </div>
+          </Widget>
+        </Grid>
+        <Grid item xs={12} md={12}>
+          <Widget title="訓練記錄" disableWidgetMenu>
+            <Table className="mb-0">
+              <TableHead>
+                <TableRow>
+                  {["訓練時間", "類型", "目標", "統計", "完成目標時間 (秒)", "總訓練時間 (秒)"].map(key => (
+                    <TableCell key={key}>{key}</TableCell>
+                  ))}
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {infomation.workoutHistoryList?.map(workoutHistory => (
+                  <TableRow>
+                    <TableCell className="pl-3 fw-normal">{workoutHistory.startTime}</TableCell>
+                    <TableCell>{workoutHistory.type}</TableCell>
+                    <TableCell>{workoutHistory.target}</TableCell>
+                    <TableCell>{workoutHistory.count}</TableCell>
+                    <TableCell>{workoutHistory.targetTimeSpent}</TableCell>
+                    <TableCell>{workoutHistory.endTimeSpent}</TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
           </Widget>
         </Grid>
       </Grid>

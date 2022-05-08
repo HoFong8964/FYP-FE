@@ -163,7 +163,7 @@ function Login(props) {
               ) : (
                 <Button
                   disabled={
-                    loginValue.length === 0 || passwordValue.length === 0
+                    phyLoginValue.length === 0 || phyPasswordValue.length === 0
                   }
                   onClick={() =>
                     loginPhyUser(

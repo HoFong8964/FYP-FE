@@ -25,8 +25,8 @@ import { Badge, Typography } from "../Wrappers";
 import Notification from "../Notification";
 import UserAvatar from "../UserAvatar";
 
-const account = localStorage.getItem("account");
-const displayName = localStorage.getItem("displayName");
+const account = localStorage.getItem('account');
+const displayName = localStorage.getItem('displayName');
 
 const messages = [
   {

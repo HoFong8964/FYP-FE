@@ -32,45 +32,8 @@ import {
   toggleSidebar,
 } from "../../context/LayoutContext";
 
-if(localStorage.getItem('type') === 'physiotherapists'){
-  var structure = [
-    { id: 0, label: "預約診症", link: "/app/book", icon: <DateRangeIcon /> },
-    { id: 1, label: "預約記錄", link: "/app/appointment", icon: <AccessAlarmsIcon /> },
-  ];
-}
-else{
-  var structure = [
-    { id: 0, label: "個人資料", link: "/app/personal", icon: <PersonIcon /> },
-    { id: 1, label: "預約診症", link: "/app/book", icon: <DateRangeIcon /> },
-    { id: 2, label: "預約記錄", link: "/app/appointment", icon: <AccessAlarmsIcon /> },
-    {
-      id: 1,
-      label: "Typography",
-      link: "/app/typography",
-      icon: <TypographyIcon />,
-    },
-    { id: 2, label: "Tables", link: "/app/tables", icon: <TableIcon /> },
-    {
-      id: 3,
-      label: "Notifications",
-      link: "/app/notifications",
-      icon: <NotificationsIcon />,
-    },
-    {
-      id: 4,
-      label: "UI Elements",
-      link: "/app/ui",
-      icon: <UIElementsIcon />,
-      children: [
-        { label: "Icons", link: "/app/ui/icons" },
-        { label: "Charts", link: "/app/ui/charts" },
-        { label: "Maps", link: "/app/ui/maps" },
-      ],
-    },
-  ];
-}
-
 function Sidebar({ location }) {
+
   var classes = useStyles();
   var theme = useTheme();
 
@@ -80,6 +43,49 @@ function Sidebar({ location }) {
 
   // local
   var [isPermanent, setPermanent] = useState(true);
+  var [structure, setStructure] = useState([]);
+
+  useEffect(() => {
+    let tempStructure;
+    if(localStorage.getItem('type') === 'physiotherapists'){
+      tempStructure = [
+        { id: 1, label: "預約記錄", link: "/app/appointment", icon: <AccessAlarmsIcon /> },
+      ];
+    }
+    else{
+      tempStructure = [
+        { id: 0, label: "個人資料", link: "/app/personal", icon: <PersonIcon /> },
+        { id: 1, label: "預約診症", link: "/app/book", icon: <DateRangeIcon /> },
+        { id: 2, label: "預約記錄", link: "/app/appointment", icon: <AccessAlarmsIcon /> },
+        {
+          id: 1,
+          label: "Typography",
+          link: "/app/typography",
+          icon: <TypographyIcon />,
+        },
+        { id: 2, label: "Tables", link: "/app/tables", icon: <TableIcon /> },
+        {
+          id: 3,
+          label: "Notifications",
+          link: "/app/notifications",
+          icon: <NotificationsIcon />,
+        },
+        {
+          id: 4,
+          label: "UI Elements",
+          link: "/app/ui",
+          icon: <UIElementsIcon />,
+          children: [
+            { label: "Icons", link: "/app/ui/icons" },
+            { label: "Charts", link: "/app/ui/charts" },
+            { label: "Maps", link: "/app/ui/maps" },
+          ],
+        },
+      ];
+    }
+    setStructure(tempStructure);
+
+  }, []);
 
   useEffect(function() {
     window.addEventListener("resize", handleWindowWidthChange);
