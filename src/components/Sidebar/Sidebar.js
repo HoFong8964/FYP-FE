@@ -12,7 +12,8 @@ import {
   HelpOutline as FAQIcon,
   ArrowBack as ArrowBackIcon,
   DateRange as DateRangeIcon,
-  AccessAlarms as AccessAlarmsIcon
+  AccessAlarms as AccessAlarmsIcon,
+  FormatListBulleted as FormatListBulletedIcon
 } from "@material-ui/icons";
 import { useTheme } from "@material-ui/styles";
 import { withRouter } from "react-router-dom";
@@ -49,38 +50,16 @@ function Sidebar({ location }) {
     let tempStructure;
     if(localStorage.getItem('type') === 'physiotherapists'){
       tempStructure = [
-        { id: 1, label: "預約記錄", link: "/app/appointment", icon: <AccessAlarmsIcon /> },
+        { id: 1, label: "我的患者", link: "/app/patientsList", icon: <FormatListBulletedIcon /> },
+        { id: 1, label: "預約記錄", link: "/app/appointment", icon: <DateRangeIcon /> },
       ];
     }
     else{
       tempStructure = [
         { id: 0, label: "個人資料", link: "/app/personal", icon: <PersonIcon /> },
-        { id: 1, label: "預約診症", link: "/app/book", icon: <DateRangeIcon /> },
-        { id: 2, label: "預約記錄", link: "/app/appointment", icon: <AccessAlarmsIcon /> },
-        {
-          id: 1,
-          label: "Typography",
-          link: "/app/typography",
-          icon: <TypographyIcon />,
-        },
-        { id: 2, label: "Tables", link: "/app/tables", icon: <TableIcon /> },
-        {
-          id: 3,
-          label: "Notifications",
-          link: "/app/notifications",
-          icon: <NotificationsIcon />,
-        },
-        {
-          id: 4,
-          label: "UI Elements",
-          link: "/app/ui",
-          icon: <UIElementsIcon />,
-          children: [
-            { label: "Icons", link: "/app/ui/icons" },
-            { label: "Charts", link: "/app/ui/charts" },
-            { label: "Maps", link: "/app/ui/maps" },
-          ],
-        },
+        { id: 1, label: "物理治療師列表", link: "/app/physiotherapistsList", icon: <FormatListBulletedIcon /> },
+        { id: 2, label: "預約診症", link: "/app/book", icon: <AccessAlarmsIcon /> },
+        { id: 3, label: "預約記錄", link: "/app/appointment", icon: <DateRangeIcon /> },
       ];
     }
     setStructure(tempStructure);

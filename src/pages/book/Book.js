@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import { Grid, TextField, Select, MenuItem, Box, Button, FormControl, InputLabel, Checkbox} from "@material-ui/core";
 import { Close as CloseIcon } from "@material-ui/icons";
 import { ToastContainer, toast } from "react-toastify";
@@ -17,6 +18,7 @@ import useStyles from "./styles";
 import Widget from "../../components/Widget/Widget";
 import PageTitle from "../../components/PageTitle/PageTitle";
 import Notification from "../../components/Notification";
+import { set } from "date-fns";
 
 
 const positions = [
@@ -40,6 +42,7 @@ export default function NotificationsPage(props) {
   var [minute, setMinute] = useState('');
   var [remarks, setRemarks] = useState('');
   var [agreement ,setAgreement] = useState(false);
+  var { selectedPhyId } = useParams();
   
 
   var hours = ['10','11','12','13','14','15','16','17','18']
@@ -59,6 +62,10 @@ export default function NotificationsPage(props) {
       .then(response => response.json())
       .then(data => {
         setPhyList(data.res);
+        if(selectedPhyId){
+          console.log("selectedPhyId: ", selectedPhyId);
+          setPhyId(selectedPhyId);
+        }
       });
   }, []);
   

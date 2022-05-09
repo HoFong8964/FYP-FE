@@ -12,6 +12,7 @@ import {
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
 import SearchBar from "material-ui-search-bar";
+import axios from 'axios'; 
 
 // components
 import PageTitle from "../../components/PageTitle/PageTitle";
@@ -85,8 +86,16 @@ export default function Appointment() {
   if(localStorage.getItem('type') === 'physiotherapists'){
     isPhysiotherapists = true;
   }
+  const cancelBooking = (appointmentId) => {
+    console.log("appointmentId: ", appointmentId);
+    if (window.confirm("刪除此預約記錄") == true) {
+      var query = '?id='+appointmentId;
+      axios.delete('http://localhost:3001/cancelAppointment'+query)
+        .then(() => getAppointmentData());
+    }
+  }
 
-  useEffect(() => {
+  const getAppointmentData = () => {
     // get appointment data
     const requestOptions = {
       method: 'GET',
@@ -107,6 +116,7 @@ export default function Appointment() {
         data?.res?.map((appointment) => {
           if(isPhysiotherapists){
             featureAppointmentList.push({
+              appointmentId: appointment._id,
               patientId: appointment.patientId,
               appointmentDate: appointment.appointmentDate,
               appointmentTime: appointment.appointmentTime,
@@ -119,6 +129,7 @@ export default function Appointment() {
           }
           else{
             featureAppointmentList.push({
+              appointmentId: appointment._id,
               appointmentDate: appointment.appointmentDate,
               appointmentTime: appointment.appointmentTime,
               center: appointment.physiotherapistsDetails[0].center,
@@ -162,7 +173,11 @@ export default function Appointment() {
         setAllPastAppointmentList(pastAppointmentList);
         setPastAppointmentList(pastAppointmentList);
       });
+  };
 
+
+  useEffect(() => {
+    getAppointmentData();
   }, []);
 
   return (
@@ -210,7 +225,7 @@ export default function Appointment() {
         <Table className="mb-0">
           <TableHead>
             <TableRow>
-              {["日期", "時間", "身分證號碼", "患者姓名", "出生日期", "性別", "備註", "查看"].map(key => (
+              {["日期", "時間", "身分證號碼", "患者姓名", "出生日期", "性別", "備註", "管理"].map(key => (
                 <TableCell key={key}>{key}</TableCell>
               ))}
             </TableRow>
@@ -226,7 +241,7 @@ export default function Appointment() {
                 <TableCell>{featureAppointment.sex}</TableCell>
                 <TableCell>{featureAppointment.remarks}</TableCell>
                 <TableCell>
-                    <Chip label={"患者資料"} onClick={() => {window.location = `/#/app/patient/${featureAppointment.patientId}`}} classes={{ root: classes.success }} />
+                    <Chip label={"取消預約"} onClick={() => cancelBooking(featureAppointment.appointmentId)} classes={{ root: classes.warning }} />
                 </TableCell>
               </TableRow>
             ))}
@@ -259,7 +274,7 @@ export default function Appointment() {
         <Table className="mb-0">
           <TableHead>
             <TableRow>
-              {["日期", "時間", "身分證號碼", "患者姓名", "出生日期", "性別", "備註", "查看"].map(key => (
+              {["日期", "時間", "身分證號碼", "患者姓名", "出生日期", "性別", "備註"].map(key => (
                 <TableCell key={key}>{key}</TableCell>
               ))}
             </TableRow>
@@ -270,13 +285,10 @@ export default function Appointment() {
                 <TableCell className="pl-3 fw-normal">{featureAppointment.appointmentDate}</TableCell>
                 <TableCell>{featureAppointment.appointmentTime}</TableCell>
                 <TableCell>{featureAppointment.idNum}</TableCell>
-                <TableCell><a href={`/#/app/patient/${featureAppointment.id}`}>{featureAppointment.displayName}</a></TableCell>
+                <TableCell>{featureAppointment.displayName}</TableCell>
                 <TableCell>{featureAppointment.dob}</TableCell>
                 <TableCell>{featureAppointment.sex}</TableCell>
                 <TableCell>{featureAppointment.remarks}</TableCell>
-                <TableCell>
-                    <Chip label={"患者資料"} onClick={() => {window.location = `/#/app/patient/${featureAppointment.patientId}`}} classes={{ root: classes.success }} />
-                </TableCell>
               </TableRow>
             ))}
           </TableBody>

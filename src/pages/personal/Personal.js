@@ -49,6 +49,12 @@ export default function PersonalPage() {
                 {infomation.displayName}
               </Typography>
               <Typography variant="h5" color="primary" className={classes.text}>
+                電話號碼 :
+              </Typography>
+              <Typography className={classes.text}>
+                {infomation.phoneNum}
+              </Typography>
+              <Typography variant="h5" color="primary" className={classes.text}>
                 身分證號碼 :
               </Typography>
               <Typography className={classes.text}>

@@ -29,6 +29,8 @@ import Personal from "../../pages/personal";
 import Patient from "../../pages/patient";
 import Book from "../../pages/book";
 import Appointment from "../../pages/appointment";
+import PhysiotherapistsList  from "../../pages/physiotherapistsList";
+import Patientslist  from "../../pages/patientslist/Patientslist";
 import Typography from "../../pages/typography";
 import Notifications from "../../pages/notifications";
 import Maps from "../../pages/maps";
@@ -60,7 +62,10 @@ function Layout(props) {
               <Route path="/app/personal" component={Personal} />
               <Route path="/app/patient/:patientId" component={Patient} />
               <Route path="/app/book" component={Book} />
+              <Route path="/app/booking/:selectedPhyId" component={Book} />
               <Route path="/app/appointment" component={Appointment} />
+              <Route path="/app/physiotherapistsList" component={PhysiotherapistsList} />
+              <Route path="/app/patientsList" component={Patientslist} />
               <Route path="/app/dashboard" component={Dashboard} />
               <Route path="/app/typography" component={Typography} />
               <Route path="/app/tables" component={Tables} />

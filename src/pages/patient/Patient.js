@@ -52,6 +52,19 @@ export default function PatientPage() {
             }
           });
         })
+        .then(() => {
+          // get workout data
+          fetch('http://localhost:3001/getPatientWorkoutHistory?patientId='+patientId, requestOptions)
+          .then(response => response.json())
+          .then(data => {
+            if(data.res[0]){
+              setInfomation(data.res[0]);
+            }
+            else{
+              window.location = "/#/app/appointment";
+            }
+          });
+        })
     }
   }, []);
 
@@ -67,6 +80,12 @@ export default function PatientPage() {
               </Typography>
               <Typography className={classes.text}>
                 {infomation.displayName}
+              </Typography>
+              <Typography variant="h5" color="primary" className={classes.text}>
+                電話號碼 :
+              </Typography>
+              <Typography className={classes.text}>
+                {infomation.phoneNum}
               </Typography>
               <Typography variant="h5" color="primary" className={classes.text}>
                 身分證號碼 :
